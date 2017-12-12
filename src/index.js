@@ -7,6 +7,7 @@ import { Provider, connect } from 'react-redux'
 
 const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
+const ADD_RANDOM_NUMBER = 'ADD_RANDOM_NUMBER'
 
 function increment () {
   return {
@@ -20,7 +21,13 @@ function decrement () {
   }
 }
 
-const actionCreators = { increment, decrement }
+function addRandomNumber () {
+  return {
+    type: ADD_RANDOM_NUMBER
+  }
+}
+
+const actionCreators = { increment, decrement, addRandomNumber }
 
 const BLANK_STATE = {
   amount: 0
@@ -35,6 +42,10 @@ function reducer (state = BLANK_STATE, action) {
     case DECREMENT:
       return {
         amount: state.amount - 1
+      }
+    case ADD_RANDOM_NUMBER:
+      return {
+        amount: state.amount + Math.floor(Math.random() * 10)
       }
     default:
       return state
@@ -51,6 +62,9 @@ class MainComponent extends Component {
         </button>
         <button className="decrement" onClick={this.props.actions.decrement}>
           Decrement
+        </button>
+        <button className="add-random-number" onClick={this.props.actions.addRandomNumber}>
+          Add random number
         </button>
       </div>
     )
