@@ -5,13 +5,11 @@ import { devToolsEnhancer } from 'redux-devtools-extension'
 import { createStore, bindActionCreators } from 'redux'
 import { Provider, connect } from 'react-redux'
 
-const INCREMENT = 'INCREMENT'
-const DECREMENT = 'DECREMENT'
-const ADD_RANDOM_NUMBER = 'ADD_RANDOM_NUMBER'
+import actionTypes from './app/action-types'
 
 function increment (amount) {
   return {
-    type: INCREMENT,
+    type: actionTypes.INCREMENT,
     payload: {
       amount
     }
@@ -20,13 +18,13 @@ function increment (amount) {
 
 function decrement () {
   return {
-    type: DECREMENT
+    type: actionTypes.DECREMENT
   }
 }
 
 function addRandomNumber () {
   return {
-    type: ADD_RANDOM_NUMBER
+    type: actionTypes.ADD_RANDOM_NUMBER
   }
 }
 
@@ -38,15 +36,15 @@ const BLANK_STATE = {
 
 function reducer (state = BLANK_STATE, action) {
   switch (action.type) {
-    case INCREMENT:
+    case actionTypes.INCREMENT:
       return {
         amount: state.amount + action.payload.amount
       }
-    case DECREMENT:
+    case actionTypes.DECREMENT:
       return {
         amount: state.amount - 1
       }
-    case ADD_RANDOM_NUMBER:
+    case actionTypes.ADD_RANDOM_NUMBER:
       return {
         amount: state.amount + Math.floor(Math.random() * 10)
       }
