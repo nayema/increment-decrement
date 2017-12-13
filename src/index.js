@@ -9,9 +9,12 @@ const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
 const ADD_RANDOM_NUMBER = 'ADD_RANDOM_NUMBER'
 
-function increment () {
+function increment (amount) {
   return {
-    type: INCREMENT
+    type: INCREMENT,
+    payload: {
+      amount
+    }
   }
 }
 
@@ -37,7 +40,7 @@ function reducer (state = BLANK_STATE, action) {
   switch (action.type) {
     case INCREMENT:
       return {
-        amount: state.amount + 1
+        amount: state.amount + action.payload.amount
       }
     case DECREMENT:
       return {
@@ -53,11 +56,21 @@ function reducer (state = BLANK_STATE, action) {
 }
 
 class MainComponent extends Component {
+  constructor (props) {
+    super(props)
+
+    this.incrementOnClick = this.incrementOnClick.bind(this)
+  }
+
+  incrementOnClick () {
+    this.props.actions.increment(5)
+  }
+
   render () {
     return (
       <div>
         <h1>{this.props.state.amount}</h1>
-        <button className="increment" onClick={this.props.actions.increment}>
+        <button className="increment" onClick={this.incrementOnClick}>
           Increment
         </button>
         <button className="decrement" onClick={this.props.actions.decrement}>
